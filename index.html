@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EA5 - Kamerabewegung</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <h1>EA5 - Kamerabewegung</h1>
+</header>
+
+<main class="container">
+
+    <section class="panel">
+
+        <h2>3D-Szene mit beweglicher Kamera</h2>
+
+        <p class="center">
+            Möbiusband, Helicoid und rekursive Kugel
+        </p>
+
+        <div class="buttons">
+            <button onclick="changeDepth(-1)">
+                − Rekursion
+            </button>
+
+            <span id="depthInfo">Rekursionstiefe: 2</span>
+
+            <button onclick="changeDepth(1)">
+                + Rekursion
+            </button>
+        </div>
+
+        <div class="buttons">
+            <button onclick="toggleMode()">
+                Darstellung wechseln
+            </button>
+        </div>
+
+        <p id="modeInfo">Darstellung: Füllung</p>
+
+        <div class="animation-area">
+            <canvas id="canvas" width="700" height="550">
+                Dein Browser unterstützt Canvas nicht.
+            </canvas>
+        </div>
+
+        <p id="cameraInfo" class="center"></p>
+
+    </section>
+
+    <section class="panel dokumentation">
+
+        <h2>Dokumentation</h2>
+
+        <h3>Bedienung</h3>
+
+        <p>
+            Mit den Pfeiltasten nach links und rechts
+            kann die Kamera um die Szene bewegt werden.
+            Mit den Pfeiltasten nach oben und unten
+            kann die Kamerahöhe unabhängig vom
+            Kameraabstand verändert werden.
+            Mit der Taste N wird der Kameraabstand
+            vergrößert. Mit Shift + N wird der
+            Kameraabstand verkleinert.
+            Über die Buttons + Rekursion und − Rekursion
+            kann die Rekursionstiefe der Kugel zwischen
+            0 und 5 verändert werden.
+            Mit "Darstellung wechseln" kann zwischen
+            farbigen Flächen mit Liniennetz und
+            einer reinen Liniendarstellung
+            gewechselt werden.
+        </p>
+
+        <h3>Technische Umsetzung</h3>
+
+        <p>
+            Die Anwendung wurde
+            mit HTML, CSS, JavaScript und WebGL erstellt.
+            Das Möbiusband und das Helicoid werden
+            als parametrisierte Flächen berechnet.
+            Beide Flächen werden zusammen mit einer
+            rekursiven Kugel in einer Szene dargestellt.
+        </p>
+
+        <p>
+            Die Kamera bewegt sich auf einer Kreisbahn
+            um die Y-Achse. Ihre Position in der XZ-Ebene
+            wird mit Sinus und Kosinus berechnet.
+            Die Kamerahöhe kann unabhängig vom
+            Kreisradius verändert werden.
+            Mit der lookAt-Funktion wird die
+            View-Matrix erstellt. Zusätzlich wird
+            eine perspektivische Projektion verwendet.
+        </p>
+
+        <p>
+            Die Kugel wird aus einem Oktaeder mit
+            acht Dreiecken erstellt. Bei jedem
+            Rekursionsschritt wird ein Dreieck in
+            vier kleinere Dreiecke unterteilt.
+            Die neuen Punkte werden normiert,
+            damit sie auf der Kugeloberfläche liegen.
+        </p>
+
+        <p>
+            Die Positionen und Farben der Eckpunkte
+            werden in Arrays gespeichert und über
+            Buffer an WebGL übergeben.
+            Die Flächen werden mit gl.TRIANGLES
+            und die Linien mit gl.LINES gezeichnet.
+        </p>
+
+        <h3>Quellen</h3>
+
+        <p>
+            Als Grundlage für die beiden
+            parametrisierten Flächen dienten
+            die Gleichungen von 3D-Meier:
+        </p>
+
+        <p>
+            <a href="http://www.3d-meier.de/tut3/Seite0.html"
+               target="_blank"
+               rel="noopener noreferrer">
+            </a>
+
+        <p>
+            Die Parameterbereiche und Größen
+            wurden für die WebGL-Darstellung angepasst.
+        </p>
+
+    </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
